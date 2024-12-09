@@ -1,0 +1,41 @@
+public class Solution {
+    public int myAtoi(String s) {
+        // Step 1: Trim leading whitespaces
+        s = s.trim();
+        
+        if (s.isEmpty()) {
+            return 0;
+        }
+
+        // Step 2: Determine the sign
+        int sign = 1;
+        int i = 0;
+        if (s.charAt(i) == '-') {
+            sign = -1;
+            i++;  // Skip the '-' character
+        } else if (s.charAt(i) == '+') {
+            i++;  // Skip the '+' character
+        }
+
+        // Step 3: Convert the digits to an integer
+        long num = 0;
+        while (i < s.length() && Character.isDigit(s.charAt(i))) {
+            num = num * 10 + (s.charAt(i) - '0');
+            i++;
+
+            // Step 4: Handle overflow (long is used to avoid overflow during multiplication)
+            if (num * sign > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+            if (num * sign < Integer.MIN_VALUE) {
+                return Integer.MIN_VALUE;
+            }
+        }
+
+        // Step 5: Apply the sign
+        num = num * sign;
+
+        // Step 6: Return the result (cast to int)
+        return (int) num;
+    }
+}
