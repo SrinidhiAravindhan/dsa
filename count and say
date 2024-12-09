@@ -1,0 +1,40 @@
+public class Solution {
+    public String countAndSay(int n) {
+        // Base case
+        String result = "1";
+        
+        // Generate each term from 2 to n
+        for (int i = 2; i <= n; i++) {
+            StringBuilder nextTerm = new StringBuilder();
+            int count = 1;
+            
+            // Traverse the current result string to generate the next term
+            for (int j = 1; j < result.length(); j++) {
+                // If the current character is the same as the previous one, increase the count
+                if (result.charAt(j) == result.charAt(j - 1)) {
+                    count++;
+                } else {
+                    // If the current character is different, append the count and the digit to the next term
+                    nextTerm.append(count).append(result.charAt(j - 1));
+                    count = 1;  // Reset the count for the new character
+                }
+            }
+            // Append the last group (after the loop ends)
+            nextTerm.append(count).append(result.charAt(result.length() - 1));
+            
+            // Move to the next term
+            result = nextTerm.toString();
+        }
+        
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        // Test case 1: Input n = 4
+        System.out.println(solution.countAndSay(4)); // Output: "1211"
+        
+        // Test case 2: Input n = 1
+        System.out.println(solution.countAndSay(1)); // Output: "1"
+    }
+}
