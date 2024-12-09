@@ -1,0 +1,35 @@
+public class Solution {
+    public int longestValidParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);  // Base for calculating lengths
+        int maxLength = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (c == '(') {
+                stack.push(i);  // Push index of '('
+            } else {
+                stack.pop();  // Pop the last '(' index
+                if (!stack.isEmpty()) {
+                    // If stack is not empty, calculate the valid substring length
+                    maxLength = Math.max(maxLength, i - stack.peek());
+                } else {
+                    // If stack is empty, push the current index as the base
+                    stack.push(i);
+                }
+            }
+        }
+        
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        // Test cases
+        System.out.println(sol.longestValidParentheses("(()"));  // Output: 2
+        System.out.println(sol.longestValidParentheses(")()())"));  // Output: 4
+        System.out.println(sol.longestValidParentheses(""));  // Output: 0
+    }
+}
