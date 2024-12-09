@@ -1,0 +1,43 @@
+public class Solution {
+    public String multiply(String num1, String num2) {
+        int len1 = num1.length();
+        int len2 = num2.length();
+        
+        // Result array to store the product, size will be len1 + len2
+        int[] result = new int[len1 + len2];
+        
+        // Multiply each digit and store the result in the appropriate position in the result array
+        for (int i = len1 - 1; i >= 0; i--) {
+            for (int j = len2 - 1; j >= 0; j--) {
+                int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+                int sum = mul + result[i + j + 1];  // Add previous value at that position
+                
+                // Carry over to the next position
+                result[i + j + 1] = sum % 10;  // Place the current digit at the correct position
+                result[i + j] += sum / 10;     // Carry over the value to the next left position
+            }
+        }
+        
+        // Convert result array to a string, skipping leading zeros
+        StringBuilder sb = new StringBuilder();
+        for (int num : result) {
+            if (!(sb.length() == 0 && num == 0)) {  // Avoid leading zeros
+                sb.append(num);
+            }
+        }
+        
+        // If the result is empty, return "0"
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        
+        // Test cases
+        System.out.println(solution.multiply("2", "3"));      // Output: "6"
+        System.out.println(solution.multiply("123", "456"));  // Output: "56088"
+        System.out.println(solution.multiply("0", "123"));    // Output: "0"
+        System.out.println(solution.multiply("123", "0"));    // Output: "0"
+        System.out.println(solution.multiply("99", "99"));    // Output: "9801"
+    }
+}
