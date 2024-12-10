@@ -1,0 +1,36 @@
+class Main {
+    public static void main(String[] args) {
+        System.out.println("hii");
+
+        int[][] mat = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        int n = mat.length;
+        int m = mat[0].length;
+        System.out.println(" Matrix:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(mat[i][j] + " ");
+            }
+            System.out.println();
+        }
+        int[][] result = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
+                    result[i][j] += mat[i][k] * mat[k][j];
+                }
+            }
+        }
+        System.out.println("output:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
